@@ -8,16 +8,17 @@ class App extends React.Component {
     super(props);
     //assign state
     this.state = { lat: null, errorMessage: "" };
+  }
 
+  componentDidMount() {
     window.navigator.geolocation.getCurrentPosition(
-      (position) => {
-        // to update state always call setState!
-        this.setState({ lat: position.coords.latitude });
-      },
-      (err) => {
-        this.setState({ errorMessage: err.message });
-      }
+      // to update state always call setState!
+      (position) => this.setState({ lat: position.coords.latitude }),
+      (err) => this.setState({ errorMessage: err.message })
     );
+  }
+  componentDidUpdate() {
+    console.log("My component was just updated - it rerendered");
   }
   //conditional rendering
   render() {
