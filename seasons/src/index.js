@@ -13,8 +13,7 @@ class App extends React.Component {
       (err) => this.setState({ errorMessage: err.message })
     );
   }
-  //conditional rendering
-  render() {
+  renderContent() {
     if (this.state.errorMessage && !this.state.lat) {
       return <div>Error: {this.state.errorMessage}</div>;
     } else if (!this.state.errorMessage && this.state.lat) {
@@ -26,6 +25,9 @@ class App extends React.Component {
         <Spinner spinnerMessage="Please allow to share your location for this app to work!" />
       );
     }
+  }
+  render() {
+    return <div className="border red">{this.renderContent()}</div>;
   }
 }
 ReactDOM.render(<App />, document.querySelector("#root"));
