@@ -2,18 +2,16 @@ import React from "react";
 class SearchBar extends React.Component {
   state = { term: "" };
 
-  onFormSubmit(event) {
+  onFormSubmit = (event) => {
     event.preventDefault();
+    //the arrow function makes sure the value of this is the same as our instance of the Searchbar
     console.log(this.state.term);
-  }
+  };
 
   render() {
     return (
       <div className="ui segment">
-        <form
-          onSubmit={(event) => this.onFormSubmit(event)}
-          className="ui form"
-        >
+        <form onSubmit={this.onFormSubmit} className="ui form">
           <div className="field">
             <label htmlFor="searchfield">Search term</label>
             <input
