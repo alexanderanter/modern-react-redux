@@ -1,6 +1,7 @@
 import React from "react";
-
 class SearchBar extends React.Component {
+  state = { term: "" };
+
   render() {
     return (
       <div className="ui segment">
@@ -11,7 +12,8 @@ class SearchBar extends React.Component {
               name="searchfield"
               type="text"
               placeholder="fill in your searchterm"
-              onChange={(e) => console.log(e.target.value)}
+              value={this.state.term}
+              onChange={(e) => this.setState({ term: e.target.value })}
             />
           </div>
         </form>
