@@ -2,7 +2,10 @@ import React from "react";
 
 const ImageList = (props) => {
   const images = props.images.map((image) => {
-    return <img src={image.urls.regular} />;
+    //place the key property on the root element (the wrapper if there is one!)
+    return (
+      <img key={image.id} src={image.urls.regular} alt={image.description} />
+    );
   });
   return <div>{images}</div>;
 };
