@@ -5,7 +5,10 @@ class SearchBar extends React.Component {
   onFormSubmit = (event) => {
     event.preventDefault();
     //the arrow function makes sure the value of this is the same as our instance of the Searchbar
-    console.log(this.state.term);
+
+    // call props with this.props as its a class-based component!
+    // invoking a parents function by calling a function that was sent into the child as a prop
+    this.props.onSubmit(this.state.term);
   };
 
   render() {
