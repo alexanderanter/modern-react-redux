@@ -17,6 +17,7 @@ class App extends React.Component {
   //new callback method
   onVideoSelect = (video) => {
     console.log("from the app!", video);
+    this.setState({ selectedVideo: video });
   };
 
   render() {
