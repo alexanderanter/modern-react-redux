@@ -1,6 +1,6 @@
 import React from "react";
 
-const VideoList = ({ videos }) => {
+const VideoList = ({ videos = [] }) => {
   return <div>{videos.length}</div>;
 };
 
