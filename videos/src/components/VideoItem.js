@@ -1,11 +1,12 @@
 import React from "react";
 import "./VideoItem.css";
 
-const VideoItem = ({ video }) => {
+const VideoItem = ({ video, onVideoSelect }) => {
   console.log(video);
   return (
     <div>
-      <div className="video-item item">
+      {/* When a user click on a video we invoke the callback that was passed down as a prop and destructured */}
+      <div onClick={() => onVideoSelect(video)} className="video-item item">
         <img
           className="video-thumb ui image"
           width="300px"
@@ -14,11 +15,6 @@ const VideoItem = ({ video }) => {
         <div className="content">
           <div className="header"> {video.snippet.title}</div>
         </div>
-        {/* <iframe
-          width="100%"
-          height="315"
-          src={`https://www.youtube.com/embed/${video.id.videoId}`}
-        ></iframe> */}
       </div>
     </div>
   );
