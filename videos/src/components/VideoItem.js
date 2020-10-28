@@ -10,6 +10,7 @@ const VideoItem = ({ video, onVideoSelect }) => {
         <img
           className="video-thumb ui image"
           width="300px"
+          alt={video.snippet.description}
           src={video.snippet.thumbnails.medium.url}
         />
         <div className="content">
