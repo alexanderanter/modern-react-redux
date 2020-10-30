@@ -2,6 +2,23 @@
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import sanitizeHtml from "sanitize-html";
+
+const defaultOptions = {
+  allowedTags: ["b", "i", "em", "strong", "a"],
+  allowedAttributes: {
+    a: ["href"],
+  },
+  allowedIframeHostnames: ["www.youtube.com"],
+};
+
+const sanitize = (dirty, options) => ({
+  __html: sanitizeHtml(dirty, (options: { ...defaultOptions, ...options })),
+});
+
+const SanitizeHTML = ({ html, options }) => (
+  <div dangerouslySetInnerHTML={sanitize(html, options)} />
+);
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -31,11 +48,14 @@ const Search = () => {
     }
   }, [searchTerm]);
   const renderedResults = results.map((result) => {
+    const sanitizedResult = sanitize(result.snippet);
     return (
       <div className="item" key={result.pageid}>
         <div className="content">
           <div className="header">{result.title}</div>
-          <span dangerouslySetInnerHTML={{ __html: result.snippet }}></span>
+          <span
+            dangerouslySetInnerHTML={{ __html: sanitizedResult.__html }}
+          ></span>
         </div>
       </div>
     );
