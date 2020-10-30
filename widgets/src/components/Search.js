@@ -5,13 +5,14 @@ import axios from "axios";
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [results, setResults] = useState([]);
+
   const handleOnChange = (value) => {
     setSearchTerm(value);
   };
-
   useEffect(() => {
     const search = async () => {
-      await axios.get("https://en.wikipedia.org/w/api.php", {
+      const { data } = await axios.get("https://en.wikipedia.org/w/api.php", {
         params: {
           action: "query",
           list: "search",
@@ -20,8 +21,13 @@ const Search = () => {
           srsearch: searchTerm,
         },
       });
+
+      setResults(data.query.search);
     };
-    search();
+    //only search after a searchterm have been provided
+    if (searchTerm) {
+      search();
+    }
   }, [searchTerm]);
 
   return (
