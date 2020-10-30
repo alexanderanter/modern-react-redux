@@ -10,6 +10,7 @@ const Search = () => {
   const handleOnChange = (value) => {
     setSearchTerm(value);
   };
+  console.log(results);
   useEffect(() => {
     const search = async () => {
       const { data } = await axios.get("https://en.wikipedia.org/w/api.php", {
@@ -29,17 +30,29 @@ const Search = () => {
       search();
     }
   }, [searchTerm]);
-
-  return (
-    <div className="ui form">
-      <div className="field">
-        <label> Enter Search input</label>
-        <input
-          className="input"
-          value={searchTerm}
-          onChange={(e) => handleOnChange(e.target.value)}
-        />
+  const renderedResults = results.map((result) => {
+    return (
+      <div className="item" key={result.pageid}>
+        <div className="content">
+          <div className="header">{result.title}</div>
+          <span dangerouslySetInnerHTML={{ __html: result.snippet }}></span>
+        </div>
       </div>
+    );
+  });
+  return (
+    <div>
+      <div className="ui form">
+        <div className="field">
+          <label> Enter Search input</label>
+          <input
+            className="input"
+            value={searchTerm}
+            onChange={(e) => handleOnChange(e.target.value)}
+          />
+        </div>
+      </div>
+      <div className="ui celled list ">{renderedResults}</div>
     </div>
   );
 };
