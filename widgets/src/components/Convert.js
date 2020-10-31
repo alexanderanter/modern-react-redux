@@ -20,7 +20,7 @@ const Convert = ({ language, text }) => {
 				'https://translation.googleapis.com/language/translate/v2',
 				{
 					params: {
-						q: text,
+						q: debouncedText,
 						target: language.value,
 						key: 'AIzaSyCHUCmpR7cT_yDFHC98CZJy2LTms-IwDlM',
 					},
@@ -29,7 +29,7 @@ const Convert = ({ language, text }) => {
 			setTranslatedText(data.data.translations[0].translatedText);
 		};
 		translate(debouncedText);
-	}, [debouncedText]);
+	}, [debouncedText, language]);
 
 	return (
 		<div>
