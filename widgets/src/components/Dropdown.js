@@ -2,15 +2,19 @@ import React, { useState, useEffect, useRef } from 'react';
 
 const Dropdown = ({ options, title, selected, onSelectedChange }) => {
 	const [open, setOpen] = useState(true);
-	const dropdownEl = useRef();
+	const ref = useRef();
 
 	useEffect(() => {
-		document.body.addEventListener('click', (e) => {
-			if (dropdownEl.current.contains(e.target)) {
+		const onBodyClick = (event) => {
+			if (ref.current.contains(event.target)) {
 				return;
 			}
 			setOpen(false);
-		});
+		};
+		document.body.addEventListener('click', onBodyClick);
+		return () => {
+			document.body.removeEventListener('click', onBodyClick);
+		};
 	}, []);
 	const renderedOptions = options.map((option) => {
 		if (option.value === selected.value) {
@@ -32,7 +36,7 @@ const Dropdown = ({ options, title, selected, onSelectedChange }) => {
 		);
 	});
 	return (
-		<div ref={dropdownEl} className="ui form">
+		<div ref={ref} className="ui form">
 			<div className="field">
 				<label className="label">{title}</label>
 			</div>
