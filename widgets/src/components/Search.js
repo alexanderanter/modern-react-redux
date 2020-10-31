@@ -21,7 +21,7 @@ const SanitizeHTML = ({ html, options }) => (
 );
 
 const Search = () => {
-	const [searchTerm, setSearchTerm] = useState('');
+	const [searchTerm, setSearchTerm] = useState('React');
 	const [results, setResults] = useState([]);
 
 	const handleOnChange = (value) => {
@@ -43,17 +43,23 @@ const Search = () => {
 			});
 			setResults(data.query.search);
 		};
-		//only search after a searchterm have been provided
-		const timeoutId = setTimeout(() => {
-			if (searchTerm) {
+		//check if there is a default term and no results, in that case
+		// run the search instantly on first render
+		if (searchTerm && !results.length) {
+			search();
+			//only search after a searchterm have been provided
+		} else if (searchTerm) {
+			//add a timeout and place the id in a variabel so we can clear it in the return cleanup function
+			const timeoutId = setTimeout(() => {
 				search();
-			}
-		}, 500);
-		//whats in the return statement of the useEffect does not get triggered upon initial render
-		// it will be saved in memory and invoked immedeitely upon next render, perfect for cleanup!
-		return () => {
-			clearTimeout(timeoutId);
-		};
+			}, 500);
+			//whats in the return statement of the useEffect does not get triggered upon initial render
+			// it will be saved in memory and invoked immedeitely upon next render, perfect for cleanup!
+			return () => {
+				//run this code NEXT time it gets rendered!
+				clearTimeout(timeoutId);
+			};
+		}
 	}, [searchTerm]);
 	const renderedResults = results.map((result) => {
 		const sanitizedResult = sanitize(result.snippet);
