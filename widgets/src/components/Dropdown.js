@@ -1,7 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const Dropdown = ({ options, title, selected, onSelectedChange }) => {
-	const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState(true);
+	const dropdownEl = useRef();
+
+	useEffect(() => {
+		document.body.addEventListener('click', (e) => {
+			if (dropdownEl.current.contains(e.target)) {
+				return;
+			}
+			setOpen(false);
+		});
+	}, []);
 	const renderedOptions = options.map((option) => {
 		if (option.value === selected.value) {
 			return null;
@@ -10,7 +20,9 @@ const Dropdown = ({ options, title, selected, onSelectedChange }) => {
 		return (
 			<div
 				// set the state with the current option through the setter function that was passed down
-				onClick={() => onSelectedChange(option)}
+				onClick={() => {
+					onSelectedChange(option);
+				}}
 				className="item"
 				key={option.value}
 				value={option.value}
@@ -20,12 +32,14 @@ const Dropdown = ({ options, title, selected, onSelectedChange }) => {
 		);
 	});
 	return (
-		<div className="ui form">
+		<div ref={dropdownEl} className="ui form">
 			<div className="field">
 				<label className="label">{title}</label>
 			</div>
 			<div
-				onClick={() => setOpen(!open)}
+				onClick={() => {
+					setOpen(!open);
+				}}
 				className={`ui selection dropdown ${open ? ' visible active' : ''}`}
 			>
 				<i className="dropdown icon"></i>
