@@ -55,9 +55,8 @@ export default () => {
 					onSelectedChange={setSelected}
 					title="Select a color"
 				/>
-			) : (
-				<div></div>
-			)}
+			) : null}
+			<p style={{ color: selected.value }}>Hello there!</p>
 		</div>
 	);
 };
