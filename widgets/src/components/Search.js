@@ -50,7 +50,7 @@ const Search = () => {
 					list: 'search',
 					origin: '*',
 					format: 'json',
-					srsearch: searchTerm,
+					srsearch: debouncedSearchTerm,
 				},
 			});
 			setResults(data.query.search);
