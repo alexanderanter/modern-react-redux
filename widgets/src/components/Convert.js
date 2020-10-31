@@ -16,8 +16,9 @@ const Convert = ({ language, text }) => {
 
 	useEffect(() => {
 		const translate = async () => {
-			const { data } = await axios.get(
+			const { data } = await axios.post(
 				'https://translation.googleapis.com/language/translate/v2',
+				{},
 				{
 					params: {
 						q: debouncedText,
@@ -33,7 +34,7 @@ const Convert = ({ language, text }) => {
 
 	return (
 		<div>
-			<p>{translatedText}</p>
+			<h1 className="ui header">{translatedText}</h1>
 		</div>
 	);
 };
