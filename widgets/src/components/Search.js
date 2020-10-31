@@ -29,6 +29,8 @@ const Search = () => {
 	};
 	console.log(results);
 	useEffect(() => {
+		console.log('initial render or term changed');
+
 		const search = async () => {
 			const { data } = await axios.get('https://en.wikipedia.org/w/api.php', {
 				params: {
@@ -39,13 +41,19 @@ const Search = () => {
 					srsearch: searchTerm,
 				},
 			});
-
 			setResults(data.query.search);
 		};
 		//only search after a searchterm have been provided
-		if (searchTerm) {
-			search();
-		}
+		const timeoutId = setTimeout(() => {
+			if (searchTerm) {
+				search();
+			}
+		}, 500);
+		//whats in the return statement of the useEffect does not get triggered upon initial render
+		// it will be saved in memory and invoked immedeitely upon next render, perfect for cleanup!
+		return () => {
+			clearTimeout(timeoutId);
+		};
 	}, [searchTerm]);
 	const renderedResults = results.map((result) => {
 		const sanitizedResult = sanitize(result.snippet);
