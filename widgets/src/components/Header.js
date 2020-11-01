@@ -1,22 +1,23 @@
 import React from 'react';
+import Link from './Link';
 import './header.css';
 
 const Header = ({ color }) => {
 	return (
 		<div>
 			<div className={`ui secondary pointing menu ${color}`}>
-				<a href="/" className="item">
+				<Link href="/" className="item">
 					ReactFAQ
-				</a>
-				<a href="/list" className="item">
+				</Link>
+				<Link href="/list" className="item">
 					Search
-				</a>
-				<a href="/colorpicker" className="item">
+				</Link>
+				<Link href="/colorpicker" className="item">
 					Colorpicker
-				</a>
-				<a href="/translate" className="item">
+				</Link>
+				<Link href="/translate" className="item">
 					Translate
-				</a>
+				</Link>
 			</div>
 		</div>
 	);
