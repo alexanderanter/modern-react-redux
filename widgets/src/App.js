@@ -35,31 +35,8 @@ const options = [
 ];
 export default () => {
 	const [selected, setSelected] = useState(options[0]);
-	const [showDropdown, setShowDropdown] = useState(false);
 	return (
 		<div>
-			<button
-				onClick={() => {
-					setShowDropdown(!showDropdown);
-				}}
-			>
-				Toggle DropDown
-			</button>
-
-			{/* <Accordion items={items} /> */}
-			{showDropdown ? (
-				<>
-					<Dropdown
-						options={options}
-						//update the selected item from state
-						selected={selected}
-						// passing down a setter on the state as a prop so it can be called from a child component
-						onSelectedChange={setSelected}
-						title="Select a color"
-					/>
-					<p style={{ color: selected.value }}>Hello there!</p>
-				</>
-			) : null}
 			<Translate />
 		</div>
 	);
