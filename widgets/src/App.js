@@ -11,11 +11,7 @@ export default () => {
 
 	return (
 		<div>
-			<Header
-				getRef={(element) => {
-					setColorElement(element);
-				}}
-			/>
+			<Header color={colorElement} />
 			<Route path="/">
 				<ReactFAQ />
 			</Route>
@@ -23,7 +19,11 @@ export default () => {
 				<Search />
 			</Route>
 			<Route path="/colorpicker">
-				<ColorPicker colorize={colorElement} />
+				<ColorPicker
+					color={(element) => {
+						setColorElement(element);
+					}}
+				/>
 			</Route>
 			<Route path="/translate">
 				<Translate />

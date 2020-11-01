@@ -16,13 +16,11 @@ const options = [
 	},
 ];
 
-const ColorPicker = ({ colorize }) => {
+const ColorPicker = ({ color }) => {
 	const [selected, setSelected] = useState(options[0]);
 	useEffect(() => {
-		if (colorize) {
-			colorize.style.backgroundColor = selected.value;
-		}
-	}, [selected, colorize]);
+		color(selected.value);
+	}, [selected, color]);
 	return (
 		<Dropdown
 			label="Select a color"
