@@ -5,10 +5,10 @@ import { selectSong } from '../actions';
 class SongList extends Component {
 	renderedSongs() {
 		return this.props.songs.map((song) => {
-			console.log(this.props.selectedSong);
 			return (
 				<div className="item" key={song.title}>
 					{song.title}
+
 					<div className="right floated content">
 						<button
 							className="ui button primary"
@@ -16,8 +16,8 @@ class SongList extends Component {
 						>
 							Select
 						</button>
+						<div></div>
 					</div>
-					<b>{song.title === this.props.selectedSong.title && ' selected'}</b>
 				</div>
 			);
 		});
