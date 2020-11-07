@@ -1,11 +1,14 @@
 import jsonPlaceholder from '../apis/jsonPlaceholder';
 import _ from 'lodash';
 
-export const fetchPostsAndUsers = () => async (dispatch) => {
+export const fetchPostsAndUsers = () => async (dispatch, getState) => {
 	console.log('about to fetch');
 	await dispatch(fetchPosts());
 
-	console.log('posts fetched!');
+	console.log(getState().posts);
+
+	const userIds = _.uniq(_.map(getState().posts, 'userId'));
+	userIds.forEach((id) => dispatch(fetchUser(id)));
 };
 
 export const fetchPosts = () => async (dispatch) => {
@@ -20,6 +23,7 @@ export const fetchUser = (id) => async (dispatch) => {
 	dispatch({ type: 'FETCH_USER', payload: response.data });
 };
 
+// MEMOIZE APPROACH
 // export const fetchUser = (id) => (dispatch) => _fetchUser(id, dispatch);
 
 // //only fetch each user ONE time from the API
